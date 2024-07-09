@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Display Images</title>
+    <style>
+        table {
+            width: 100%;
+        }
+        td {
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Images</h1>
+    <form id="imageForm">
+        <label for="numImages">Enter number of images:</label>
+        <input type="text" id="numImages" name="numImages" value="4">
+        <button type="button" onclick="displayTable()">Display Images</button>
+    </form>
+    <div id="message"></div>
+    <div id="imageTable"></div>
+
+    <script>
+        const imageLinks = [
+            "ball.jpeg",
+            "bell.jpeg",
+            "bird.jpeg",
+            "cock.jpeg"
+        ];
+
+        function displayTable() {
+            const numImages = parseInt(document.getElementById('numImages').value);
+            const messageDiv = document.getElementById('message');
+            const imageTableDiv = document.getElementById('imageTable');
+
+            messageDiv.innerHTML = '';
+            imageTableDiv.innerHTML = '';
+
+            if (isNaN(numImages) || numImages % 2 !== 0 || numImages <= 0) {
+                messageDiv.innerHTML = 'Invalid value';
+                return;
+            }
+
+            const table = document.createElement('table');
+            let row;
+
+            for (let i = 1; i <= numImages; i++) {
+                if (i % 2 === 1) {
+                    row = document.createElement('tr');
+                    table.appendChild(row);
+                }
+
+                const cell = document.createElement('td');
+                cell.innerHTML = getImageTag(i);
+                row.appendChild(cell);
+            }
+
+            imageTableDiv.appendChild(table);
+        }
+
+        function getImageTag(index) {
+            return `<img src="${imageLinks[index - 1]}" width="100" height="100" alt="Image ${index}">`;
+        }
+    </script>
+</body>
+</html>
